@@ -3,8 +3,11 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
+	"flag"
 	"fmt"
 	"os"
+	"strings"
+	"time"
 )
 
 func stdErr(err error) {
@@ -13,9 +16,32 @@ func stdErr(err error) {
 	}
 }
 
+func handleScore(s, quit <-chan int) int {
+	score := 0
+	for {
+		select {
+		case <-s:
+			score++
+		case <-time.After(time.Duration(duration) * time.Second):
+			return score
+		case <-quit:
+			return score
+		}
+	}
+}
+
+var duration int
+var filePath string
+
+func init() {
+	flag.IntVar(&duration, "timer", 30, "Sets the timer limit per question (default: 30)")
+	flag.StringVar(&filePath, "file", "problems.csv", "Sets the file to open for questions(default: problems.csv)")
+}
+
 func main() {
+	flag.Parse()
 	//create a new csvReader
-	pf, err := os.Open("problems.csv")
+	pf, err := os.Open(filePath)
 	stdErr(err)
 	defer pf.Close()
 
@@ -23,16 +49,21 @@ func main() {
 	questions, err := reader.ReadAll()
 	stdErr(err)
 
-	score := 0
+	score := make(chan int)
+	quit := make(chan int)
 	input := bufio.NewReader(os.Stdin)
-	for _, question := range questions {
-		fmt.Print(question[0] + ": ")
-		a, _, err := input.ReadLine()
-		stdErr(err)
-		if question[1] == string(a) {
-			score++
+	go func() {
+		for _, question := range questions {
+			fmt.Print(question[0] + ": ")
+			a, _, err := input.ReadLine()
+			stdErr(err)
+			if strings.TrimSpace(question[1]) == string(a) {
+				score <- 1
+			}
 		}
-	}
+		quit <- 0
+	}()
 
-	fmt.Printf("You scored %d out of %d", score, len(questions))
+	finalScore := handleScore(score, quit)
+	fmt.Printf("You scored %d out of %d questions.", finalScore, len(questions))
 }
