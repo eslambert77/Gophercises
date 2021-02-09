@@ -10,7 +10,6 @@ func (apiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//DefaultMux Configures a default server with /hello as the initial endpoint
 func DefaultMux() *http.ServeMux {
 	serv := http.NewServeMux()
 	serv.Handle("/hello", apiHandler{})
