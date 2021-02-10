@@ -27,7 +27,10 @@ func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	arcs := a.arcs
 	urlFormatted := strings.Replace(r.URL.Path, "/", "", 1)
 	if val, ok := arcs[urlFormatted]; ok {
-		t, _ := template.ParseFiles("html/page.html")
+		t, err := template.ParseFiles("html/page.html")
+		if err != nil {
+			panic(err)
+		}
 		t.Execute(w, val)
 	}
 }
