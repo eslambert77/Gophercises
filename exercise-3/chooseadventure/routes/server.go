@@ -24,10 +24,9 @@ func (apiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	filePath := "exercise-3/chooseadventure/routes/html"
+	filePath := "chooseadventure/routes/html"
 	arcs := a.arcs
-	var s string
-	urlFormatted := strings.Replace("/", r.URL.Path, s, 1)
+	urlFormatted := strings.Replace(r.URL.Path, "/", "", 1)
 	if val, ok := arcs[urlFormatted]; ok {
 		t, _ := template.ParseFiles(filePath + "page.html")
 		t.Execute(w, val)
