@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 	"text/template"
 )
@@ -24,10 +25,11 @@ func (apiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	filePath := path.Join("html", "page.html")
 	arcs := a.arcs
 	urlFormatted := strings.Replace(r.URL.Path, "/", "", 1)
 	if val, ok := arcs[urlFormatted]; ok {
-		t, err := template.ParseFiles("html/page.html")
+		t, err := template.ParseFiles(filePath)
 		if err != nil {
 			panic(err)
 		}
