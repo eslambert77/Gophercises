@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 	"text/template"
 )
 
@@ -25,7 +26,9 @@ func (apiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	filePath := "exercise-3/chooseadventure/routes/html"
 	arcs := a.arcs
-	if val, ok := arcs[r.URL.Path]; ok {
+	var s string
+	urlFormatted := strings.Replace("/", r.URL.Path, s, 1)
+	if val, ok := arcs[urlFormatted]; ok {
 		t, _ := template.ParseFiles(filePath + "page.html")
 		t.Execute(w, val)
 	}
@@ -65,7 +68,7 @@ func parseJSON(b []byte) map[string]Arc {
 }
 
 func createArcs() map[string]Arc {
-	jf, err := os.Open("exercise-3/gopher.json")
+	jf, err := os.Open("gopher.json")
 	defer jf.Close()
 	if err != nil {
 		panic("Can't open JSON file")
