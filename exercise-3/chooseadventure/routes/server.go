@@ -25,7 +25,7 @@ func (apiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	filePath := path.Join("html", "page.html")
+	filePath := path.Join("chooseadventure", "routes", "html", "page.html")
 	arcs := a.arcs
 	urlFormatted := strings.Replace(r.URL.Path, "/", "", 1)
 	if val, ok := arcs[urlFormatted]; ok {
