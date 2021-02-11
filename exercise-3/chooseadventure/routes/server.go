@@ -22,7 +22,7 @@ func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	urlFormatted := strings.Replace(r.URL.Path, "/", "", 1)
 	if val, ok := arcs[urlFormatted]; ok {
 		//Change this so it's not executing every time
-		t := template.Must(template.New("chooseadventure").Funcs(template.FuncMap{"StringsJoin": strings.Join}).ParseFiles(filePath))
+		t := template.Must(template.New("page").Funcs(template.FuncMap{"StringsJoin": strings.Join}).ParseFiles(filePath))
 		err := t.Execute(w, val)
 		if err != nil {
 			panic(err)
