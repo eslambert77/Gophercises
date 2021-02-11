@@ -29,11 +29,7 @@ func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	arcs := a.arcs
 	urlFormatted := strings.Replace(r.URL.Path, "/", "", 1)
 	if val, ok := arcs[urlFormatted]; ok {
-		t, err := template.ParseFiles(filePath)
-		if err != nil {
-			panic(err)
-		}
-		t = t.Funcs(template.FuncMap{"StringsJoin": strings.Join})
+		t := template.Must(template.New("").Funcs(template.FuncMap{"StringsJoin": strings.Join}).ParseFiles(filePath))
 		t.Execute(w, val)
 	}
 }
