@@ -4,7 +4,7 @@
         <title>{{.Title}}</title>
     </head>
     <body>
-        <p>{{StringsJoin .Story "\n"}}</p>
+        {{range .Story}}<p>{{.}}</p>{{end}}
         <hr>
         {{range .Options}}<a href={{.arc}}>{{.text}}</a>{{end}}
     </body>

@@ -29,6 +29,7 @@ func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	arcs := a.arcs
 	urlFormatted := strings.Replace(r.URL.Path, "/", "", 1)
 	if val, ok := arcs[urlFormatted]; ok {
+		//Change this so it's not executing every time
 		t := template.Must(template.New("").Funcs(template.FuncMap{"StringsJoin": strings.Join}).ParseFiles(filePath))
 		t.Execute(w, val)
 	}
@@ -42,7 +43,7 @@ func DefaultMux() *http.ServeMux {
 	serv := http.NewServeMux()
 
 	arcs := createArcs()
-	serv.Handle("/", arcHandler{arcs})
+	serv.Handle("/intro", arcHandler{arcs})
 	return serv
 }
 
