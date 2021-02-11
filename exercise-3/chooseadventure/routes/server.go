@@ -33,6 +33,7 @@ func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
+		t = t.Funcs(template.FuncMap{"StringsJoin": strings.Join})
 		t.Execute(w, val)
 	}
 }
@@ -45,7 +46,7 @@ func DefaultMux() *http.ServeMux {
 	serv := http.NewServeMux()
 
 	arcs := createArcs()
-	serv.Handle("/intro", arcHandler{arcs})
+	serv.Handle("/", arcHandler{arcs})
 	return serv
 }
 
