@@ -50,10 +50,10 @@ func DefaultMux() *http.ServeMux {
 type Arc struct {
 	Title   string   `json:"title"`
 	Story   []string `json:"story"`
-	Options []option `json:"options"`
+	Options []Option `json:"options"`
 }
 
-type option struct {
+type Option struct {
 	Text     string `json:"text"`
 	StoryArc string `json:"arc"`
 }
