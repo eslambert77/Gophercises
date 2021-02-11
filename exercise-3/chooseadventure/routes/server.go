@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -17,13 +16,6 @@ type arcHandler struct {
 	arcs map[string]Arc
 }
 
-func (apiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	filePath := "exercise-3/chooseadventure/routes/html"
-	if r.URL.Path == "/hello" {
-		http.ServeFile(w, r, filePath+"hello.html")
-	}
-}
-
 func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	filePath := path.Join("chooseadventure", "routes", "html", "page.html")
 	arcs := a.arcs
@@ -31,12 +23,11 @@ func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if val, ok := arcs[urlFormatted]; ok {
 		//Change this so it's not executing every time
 		t := template.Must(template.New("").Funcs(template.FuncMap{"StringsJoin": strings.Join}).ParseFiles(filePath))
-		t.Execute(w, val)
+		err := t.Execute(w, val)
+		if err != nil {
+			panic(err)
+		}
 	}
-}
-
-func hello(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Henlo from root!")
 }
 
 func DefaultMux() *http.ServeMux {
