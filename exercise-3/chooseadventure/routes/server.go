@@ -34,7 +34,7 @@ func DefaultMux() *http.ServeMux {
 	serv := http.NewServeMux()
 
 	arcs := createArcs()
-	serv.Handle("/intro", arcHandler{arcs})
+	serv.Handle("/", arcHandler{arcs})
 	return serv
 }
 
