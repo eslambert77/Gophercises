@@ -34,6 +34,7 @@ func DefaultMux() *http.ServeMux {
 	serv := http.NewServeMux()
 
 	arcs := createArcs()
+	serv.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("chooseadventure/routes/html"))))
 	serv.Handle("/", arcHandler{arcs})
 	return serv
 }
