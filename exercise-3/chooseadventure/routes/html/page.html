@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="styles.css">
         <title>{{.Title}}</title>
     </head>
     <body>
-        {{range .Story}}<p>{{.}}</p>{{end}}
-        <hr>
-        {{range .Options}}<a href="/{{.StoryArc}}">{{.Text}}</a>{{end}}
+        <div class="container">
+            {{range .Story}}<p>{{.}}</p>{{end}}
+            <hr>
+            {{range .Options}}<a href="/{{.StoryArc}}">{{.Text}}</a>{{end}}
+        </div>  
     </body>
 </html>
