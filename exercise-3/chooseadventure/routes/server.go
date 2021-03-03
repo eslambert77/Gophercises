@@ -17,7 +17,7 @@ type arcHandler struct {
 }
 
 func (a arcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	filePath := path.Join("chooseadventure", "routes", "html", "page.html")
+	filePath := path.Join("routes", "html", "page.html")
 	arcs := a.arcs
 	urlFormatted := strings.Replace(r.URL.Path, "/", "", 1)
 	if val, ok := arcs[urlFormatted]; ok {
@@ -34,7 +34,7 @@ func DefaultMux() *http.ServeMux {
 	serv := http.NewServeMux()
 
 	arcs := createArcs()
-	serv.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("chooseadventure/routes/html"))))
+	serv.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("routes/html"))))
 	serv.Handle("/", arcHandler{arcs})
 	return serv
 }
