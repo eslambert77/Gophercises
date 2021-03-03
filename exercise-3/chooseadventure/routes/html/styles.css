@@ -16,8 +16,12 @@ body {
     margin: auto;
 }
 
-.container p {
+.story p {
     padding-top: 20px;
+}
+
+.story:last-child {
+    margin-bottom: 20px;
 }
 
 /*

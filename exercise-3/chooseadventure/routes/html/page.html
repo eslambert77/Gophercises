@@ -6,12 +6,15 @@
     </head>
     <body>
         <div class="container">
-            {{range .Story}}<p>{{.}}</p>{{end}}
+            <div class="story">
+                {{range .Story}}<p>{{.}}</p>{{end}}
+            </div>
             <hr>
-            <ul>
-                {{range .Options}}<li class="item"><a href="/{{.StoryArc}}">{{.Text}}</a></li>{{end}}
-            </ul>
-            
+            <div class="story-links">
+                <ul>
+                    {{range .Options}}<li class="item"><a href="/{{.StoryArc}}">{{.Text}}</a></li>{{end}}
+                </ul>
+            </div>
         </div>  
     </body>
 </html>
