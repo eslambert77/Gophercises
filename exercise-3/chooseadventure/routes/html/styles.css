@@ -20,7 +20,9 @@ body {
     padding-top: 20px;
 }
 
-.container ul {
-    padding-top: 10px;
-    background-color: red;
+/*
+ Adjacent sibling selector
+*/
+.item + .item {
+    margin: 10px;
 }
