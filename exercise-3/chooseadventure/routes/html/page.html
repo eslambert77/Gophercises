@@ -8,7 +8,10 @@
         <div class="container">
             {{range .Story}}<p>{{.}}</p>{{end}}
             <hr>
-            {{range .Options}}<a href="/{{.StoryArc}}">{{.Text}}</a>{{end}}
+            <ul>
+                {{range .Options}}<li><a href="/{{.StoryArc}}">{{.Text}}</a></li>{{end}}
+            </ul>
+            
         </div>  
     </body>
 </html>

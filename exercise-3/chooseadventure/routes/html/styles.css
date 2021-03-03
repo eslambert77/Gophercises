@@ -12,5 +12,14 @@ body {
 
 .container {
     width: 900px;
+    height: 1000px;
     margin: auto;
+}
+
+.container p {
+    padding-top: 20px;
+}
+
+.container ul {
+    padding-top: 10px;
 }
