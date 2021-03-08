@@ -9,5 +9,7 @@ import (
 func main() {
 	//Let's get the hello world function and JSON working
 	serv := routes.DefaultMux()
+
 	http.ListenAndServe(":8080", serv)
+
 }
