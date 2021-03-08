@@ -21,6 +21,6 @@ func ReadHTML(filename string) *html.Node {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	fmt.Println("Tree Return")
 	return docTree
 }
